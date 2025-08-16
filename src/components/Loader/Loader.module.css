@@ -1,0 +1,35 @@
+.LoaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: light-dark(#f3f3f3, #171717);
+  opacity: 0.79;
+}
+
+.Loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border: 2px solid light-dark(#000, #fff);
+  /* Use adaptive gradient colors */
+  --loader-color: light-dark(#000, #fff);
+  --c: conic-gradient(
+    from -90deg at calc(100% - 2px) calc(100% - 2px),
+    transparent 0 90deg,
+    var(--loader-color) 0
+  );
+  background: var(--c), var(--c);
+  background-size: 16px 16px;
+  background-position: 0 0;
+  animation: l3 1s infinite;
+}
+
+@keyframes l3 {
+  100% {
+    background-position: -16px -16px, 16px 16px;
+  }
+}
