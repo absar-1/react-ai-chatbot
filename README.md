@@ -1,12 +1,11 @@
-# React + Vite
+# 🤖 AI Chatbot  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An elegant and responsive **AI-powered Chatbot** with a clean UI, multiple chat support, and modern features.  
 
-Currently, two official plugins are available:
+## ✨ Features  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 💬 **Multiple Chats** – Start and manage multiple chat sessions with ease.  
+- 📝 **Markdown Support** – Responses are beautifully formatted using Markdown.  
+- 📱 **Responsive Design** – Fully responsive on all screen sizes. A hamburger menu appears for chats on smaller devices.  
+- 🌗 **Theme Toggle** – Switch between **Dark** and **Light** themes directly from the UI.  
+- ⏳ **Smooth Loader** – A beautiful loading animation is shown while waiting for responses.
