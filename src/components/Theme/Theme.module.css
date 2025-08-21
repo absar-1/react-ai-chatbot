@@ -4,8 +4,15 @@
     gap: 8px;
     font-size: 14px;
     opacity: 0.8;
+    padding-left: calc(260px + 16px);
 }
 
 .Selector{
     border-radius: 5px;
+}
+
+@media screen and (max-width: 768px){
+  .Theme{
+    padding-left: 0;
+  }
 }
