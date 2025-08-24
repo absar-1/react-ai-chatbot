@@ -4,4 +4,19 @@
   background: light-dark(#ffffff, #212121);
   border-radius: 16px;
   overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+
+.Chat:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 768px) {
+  .Chat {
+    border-radius: 12px;
+    margin-bottom: 60px;
+  }
 }

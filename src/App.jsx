@@ -2,11 +2,11 @@ import styles from './App.module.css';
 import { Theme } from './components/Theme/Theme';
 import { Sidebar } from './components/Sidebar/Sidebar';
 import { Chat } from './components/Chat/Chat';
-import { Assistant } from './assistants/googleai';
+import { VercelAI } from './assistants/vercel-ai';
 import { useState, useMemo, useEffect } from 'react';
 import {v4 as uuidv4} from 'uuid';
 
-const assistant = new Assistant();
+const assistant = new VercelAI();
 
 
 function App() {

@@ -2,13 +2,14 @@ import { Messages } from '../Messages/Messages';
 import { Controls } from '../Controls/Controls';
 import { Loader } from '../Loader/Loader';
 import styles from './Chat.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export function Chat({ assistant, chatId, chatMessages, onChatMessagesUpdate, isActive=false }){
 
     const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isStreaming, setIsStreaming] = useState(false);
+  const chatContainerRef = useRef(null);
 
   useEffect(() =>{
     setMessages(chatMessages);
@@ -33,7 +34,13 @@ async function handleContentSend(content) {
   setIsLoading(true);
 
   try {
-    const stream = assistant.chatStream(content);
+    // Get chat history for context
+    const history = messages.map(msg => ({
+      role: msg.role,
+      content: msg.content
+    }));
+
+    const stream = assistant.chatStream(content, history);
     let isFirstChunk = true;
 
     for await (const chunk of stream) {
@@ -55,6 +62,14 @@ async function handleContentSend(content) {
 
   setIsLoading(false);
   setIsStreaming(false);
+  
+  // Focus on the response area after generating response
+  setTimeout(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.focus();
+      chatContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 100);
 }
 
 if(!isActive) return null;
@@ -63,7 +78,13 @@ if(!isActive) return null;
         <>
             {isLoading && <Loader/>}
 
-            <div className={styles.Chat}>
+            <div 
+                ref={chatContainerRef}
+                className={styles.Chat}
+                tabIndex={-1}
+                role="region"
+                aria-label="Chat messages"
+            >
                 <Messages messages={messages}/>
             </div>
 

@@ -3,6 +3,7 @@
   align-items: center;
   gap: 8px;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .TextAreaContainer {
@@ -42,4 +43,42 @@
 .TextArea:disabled
 .Button:disabled {
   opacity: 0.35;
+}
+
+@media screen and (max-width: 768px) {
+  .Controls {
+    position: fixed;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    background: transparent;
+    padding: 0;
+    gap: 8px;
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    max-width: calc(100vw - 16px);
+    box-sizing: border-box;
+  }
+  
+  .TextAreaContainer {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: light-dark(#ffffff, #212121);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid light-dark(#e0e0e0, #333333);
+  }
+  
+  .Button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: light-dark(#0d0d0d, #ececec);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid light-dark(#e0e0e0, #333333);
+    flex-shrink: 0;
+    min-width: 44px;
+  }
 }
