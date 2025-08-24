@@ -17,8 +17,24 @@ export class VercelAI {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to get response');
+        let errorMessage = 'Failed to get response';
+        
+        // Check if response is JSON or HTML/text
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch (parseError) {
+            errorMessage = `JSON parsing error: ${parseError.message}`;
+          }
+        } else {
+          // Response is HTML or text (likely an error page)
+          const errorText = await response.text();
+          errorMessage = `Server error (${response.status}): ${errorText.substring(0, 100)}...`;
+        }
+        
+        throw new Error(errorMessage);
       }
 
       const reader = response.body.getReader();
@@ -56,8 +72,24 @@ export class VercelAI {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to get response');
+        let errorMessage = 'Failed to get response';
+        
+        // Check if response is JSON or HTML/text
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch (parseError) {
+            errorMessage = `JSON parsing error: ${parseError.message}`;
+          }
+        } else {
+          // Response is HTML or text (likely an error page)
+          const errorText = await response.text();
+          errorMessage = `Server error (${response.status}): ${errorText.substring(0, 100)}...`;
+        }
+        
+        throw new Error(errorMessage);
       }
 
       return await response.text();
