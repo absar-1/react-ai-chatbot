@@ -12,17 +12,19 @@ This guide will help you deploy the React AI Chatbot to Vercel with chat streami
 
 ### 1. Prepare Your Project
 
-The project is already configured for Vercel deployment with the following structure:
+The project is now fully configured for Vercel deployment with the following structure:
 
 ```
 ├── api/
-│   └── chat.js          # Serverless function for chat streaming
+│   ├── chat.js          # Serverless function for regular chat
+│   └── chat-stream.js   # Serverless function for streaming chat
 ├── src/
 │   ├── assistants/
 │   │   └── vercel-ai.js # Vercel AI assistant class
 │   └── ...              # React components
 ├── package.json
-└── vite.config.js
+├── vite.config.js
+└── vercel.json          # Vercel deployment configuration
 ```
 
 ### 2. Deploy to Vercel

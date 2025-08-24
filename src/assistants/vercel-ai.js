@@ -5,7 +5,7 @@ export class VercelAI {
 
   async *chatStream(message, history = []) {
     try {
-      const response = await fetch(this.apiUrl, {
+      const response = await fetch('/api/chat-stream', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,8 +48,28 @@ export class VercelAI {
         }
 
         const chunk = decoder.decode(value, { stream: true });
-        if (chunk) {
-          yield chunk;
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.slice(6);
+            
+            if (data === '[DONE]') {
+              return;
+            }
+
+            try {
+              const parsed = JSON.parse(data);
+              if (parsed.error) {
+                throw new Error(parsed.error);
+              }
+              if (parsed.text) {
+                yield parsed.text;
+              }
+            } catch (e) {
+              // Skip invalid JSON lines
+            }
+          }
         }
       }
     } catch (error) {
@@ -92,7 +112,8 @@ export class VercelAI {
         throw new Error(errorMessage);
       }
 
-      return await response.text();
+      const data = await response.json();
+      return data.text;
     } catch (error) {
       console.error('Chat error:', error);
       throw error;

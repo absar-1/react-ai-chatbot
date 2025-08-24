@@ -33,6 +33,11 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Google AI API key not configured' });
     }
 
+    // Set up streaming headers
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+
     // Create a new chat session
     const chat = googleai.chats.create({ model });
     
@@ -42,21 +47,25 @@ export default async function handler(req, res) {
         if (msg.role === 'user') {
           await chat.sendMessage({ message: msg.content });
         }
-        // Note: We don't add assistant messages to history as they're responses
       }
     }
     
-    // Send the current message
-    const result = await chat.sendMessage({ message });
+    // Send the current message and get streaming response
+    const result = await chat.sendMessageStream({ message });
     
-    // Return the response
-    res.status(200).json({ 
-      text: result.text,
-      model: model
-    });
+    // Stream the response
+    for await (const chunk of result) {
+      if (chunk.text) {
+        res.write(`data: ${JSON.stringify({ text: chunk.text })}\n\n`);
+      }
+    }
+    
+    // Send end marker
+    res.write('data: [DONE]\n\n');
+    res.end();
 
   } catch (error) {
-    console.error('Chat API Error:', error);
+    console.error('Chat Stream API Error:', error);
     
     // Parse and return a user-friendly error
     let errorMessage = 'An unknown error occurred';
@@ -76,6 +85,10 @@ export default async function handler(req, res) {
       }
     }
 
-    res.status(500).json({ error: errorMessage });
+    // Send error as SSE
+    if (!res.headersSent) {
+      res.write(`data: ${JSON.stringify({ error: errorMessage })}\n\n`);
+      res.end();
+    }
   }
 }
