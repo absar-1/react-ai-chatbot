@@ -89,8 +89,14 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border: 1px solid light-dark(#e0e0e0, #333333);
     max-height: 120px; /* Limits container height */
-    /* overflow-y: auto;  Enables scrolling for long input */
+    overflow: hidden; /* Hide any overflow outside container */
     transition: all 0.2s ease;
+  }
+  
+  /* Special container styling when TextArea is focused */
+  .TextAreaContainer:has(.TextArea.Focused) {
+    max-height: 120px;
+    overflow: visible; /* Show content when textarea is focused */
   }
   
   .Button {
@@ -114,7 +120,40 @@
   .TextArea.Focused {
     max-height: 80px; /* Allow expansion when focused (roughly 3 lines) */
     white-space: normal;
-    overflow: visible;
+    overflow-y: auto; /* Enable vertical scrolling when needed */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: rgba(150, 150, 150, 0.8) rgba(240, 240, 240, 0.6); /* For Firefox */
+  }
+}
+
+/* Scrollbar styling for TextArea */
+.TextArea::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar */
+}
+
+.TextArea::-webkit-scrollbar-track {
+  background: light-dark(rgba(240, 240, 240, 0.6), rgba(50, 50, 50, 0.6)); /* Track background */
+  border-radius: 10px;
+}
+
+.TextArea::-webkit-scrollbar-thumb {
+  background: light-dark(rgba(180, 180, 180, 0.8), rgba(100, 100, 100, 0.8)); /* Thumb color */
+  border-radius: 10px;
+}
+
+.TextArea::-webkit-scrollbar-thumb:hover {
+  background: light-dark(rgba(150, 150, 150, 0.9), rgba(120, 120, 120, 0.9)); /* Darker on hover */
+}
+
+/* Mobile-specific scrollbar styles */
+@media screen and (max-width: 768px) {
+  .TextArea.Focused::-webkit-scrollbar {
+    width: 8px; /* Slightly wider on mobile for easier touch */
+  }
+
+  .TextArea.Focused::-webkit-scrollbar-thumb {
+    background: light-dark(rgba(150, 150, 150, 0.9), rgba(120, 120, 120, 0.9)); /* More visible on mobile */
   }
 }
 
