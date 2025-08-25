@@ -5,6 +5,9 @@
   height: 100%;
   padding: 8px;
   overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .Group {
@@ -19,13 +22,20 @@
 }
 
 .Message {
-  width: 90%;
-  padding: 0 16px;
+  max-width: 90%;
+  width: auto;
+  padding: 8px 16px;
   border-radius: 16px;
   font-size: 14px;
+  overflow-wrap: break-word; /* Break long words */
+  word-break: break-word; /* Allow breaking at better positions */
+  box-sizing: border-box;
 
   &[data-role = "system"]{
     background: light-dark(#ffabab, #e95050);
+    align-self: center; /* Center error messages */
+    width: auto; /* Let content determine width */
+    max-width: 95%; /* Slightly wider than regular messages */
   }
 
   &[data-role="user"] {
@@ -34,12 +44,32 @@
   }
 }
 
+.Markdown {
+  width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .Markdown pre{
   white-space: pre-wrap;
+  max-width: 100%;
+  overflow-x: auto; /* Allow horizontal scrolling within code blocks only */
 }
 
 .Markdown pre:has(code){
   background-color: light-dark(#e6e3e3, #303030);
   padding: 10px;
   border-radius: 8px;
+  max-width: 100%;
+}
+
+/* Handle long unbreakable content like error messages */
+.Message[data-role="system"] .Markdown {
+  overflow-x: hidden;
+}
+
+.Message[data-role="system"] .Markdown * {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-all; /* More aggressive breaking for error messages */
 }
