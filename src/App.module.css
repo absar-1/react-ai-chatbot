@@ -8,9 +8,27 @@
   box-sizing: border-box;
 }
 
-.Header {
+.HeaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   padding-left: calc(260px + 16px);
+  box-sizing: border-box;
+}
+
+.Header {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.HeaderContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .Logo {
@@ -20,6 +38,7 @@
 
 .Title {
   margin: 0;
+  font-size: 18px;
 }
 
 .Content{
@@ -40,14 +59,25 @@
   position: relative;
 }
 
-@media screen and (max-width: 768px){
+/* For tablets and mobile - using 1024px to cover iPads in landscape mode */
+@media screen and (max-width: 1024px){
   .App {
     padding: 8px;
     gap: 8px;
   }
   
-  .Header{
+  .HeaderContainer {
     padding-left: 0;
+    width: 100%;
+  }
+  
+  .Header{
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .HeaderContent {
+    margin-top: 8px;
   }
   
   .Content {
@@ -56,5 +86,40 @@
   
   .Main {
     gap: 8px;
+    width: 100%;
+  }
+  
+  /* Specific iPad styling improvements */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .App {
+      padding: 16px;
+      gap: 12px;
+    }
+    
+    .Header {
+      padding-left: 0; /* Removed space for hamburger menu since we're now stacking vertically */
+    }
+    
+    .HeaderContent {
+      margin-top: 16px;
+    }
+    
+    .Logo {
+      width: 72px;
+      height: 72px;
+    }
+    
+    .Title {
+      font-size: 22px;
+      margin-top: 4px;
+    }
+  }
+  
+  /* Mobile-specific adjustments */
+  @media screen and (max-width: 767px){
+    .App {
+      padding: 8px;
+      gap: 8px;
+    }
   }
 }

@@ -1,18 +1,33 @@
 .Theme{
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 8px;
     font-size: 14px;
     opacity: 0.8;
-    padding-left: calc(260px + 16px);
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 8px;
 }
 
 .Selector{
     border-radius: 5px;
+    padding: 4px 8px;
 }
 
-@media screen and (max-width: 768px){
-  .Theme{
-    padding-left: 0;
+/* For tablets and mobile - using 1024px to match App.module.css media query */
+@media screen and (max-width: 1024px){
+  
+  /* Specific iPad styling improvements */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .Theme {
+      margin-top: 4px;
+      font-size: 15px;
+    }
+    
+    .Selector {
+      padding: 5px 10px;
+      font-size: 15px;
+    }
   }
 }

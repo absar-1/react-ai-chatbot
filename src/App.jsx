@@ -48,11 +48,15 @@ function App() {
     <div className={styles.App}>
 
 
-      <header className={styles.Header}>
-        <img src="chat-bot-icon.png" className={styles.Logo} alt="ChatBot Logo"/>
-        <h2 className={styles.Title}>AI ChatBot</h2>
-      </header>
-      <Theme />
+      <div className={styles.HeaderContainer}>
+        <header className={styles.Header}>
+          <div className={styles.HeaderContent}>
+            <img src="chat-bot-icon.png" className={styles.Logo} alt="ChatBot Logo"/>
+            <h2 className={styles.Title}>AI ChatBot</h2>
+          </div>
+        </header>
+        <Theme />
+      </div>
 
       <div className={styles.Content}>
         <Sidebar chats={chats} activeChatId={activeChatId} onActiveChatIdChange={handleActiveChatIdChange}
