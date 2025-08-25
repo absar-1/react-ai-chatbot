@@ -64,7 +64,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 1500; /* Higher than Controls (1000) */
     width: 100vh;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
@@ -75,7 +75,7 @@
   position: fixed;
   top: 16px;
   left: 16px;
-  z-index: 3;
+  z-index: 2000; /* Higher than both Sidebar and Controls */
   display: none;
   padding: 8px;
   border: none;
@@ -93,7 +93,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 2;
+        z-index: 1600; /* Higher than Controls (1000) but lower than MenuButton */
         height: 100%;
         padding: 72px 16px 16px;
         border-radius: 0;
