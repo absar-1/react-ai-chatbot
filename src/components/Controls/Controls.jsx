@@ -6,10 +6,12 @@ export function Controls({ onSend, isDisabled=false }) {
 
     const textAreaRef = useRef(null);
     const [content, setContent] = useState('');
+    const [isFocused, setIsFocused] = useState(false);
 
     useEffect(() => {
         if (!isDisabled) {
             textAreaRef.current.focus();
+            setIsFocused(true);
         }
     }, [isDisabled]);
 
@@ -30,6 +32,14 @@ export function Controls({ onSend, isDisabled=false }) {
             handleContentSend();
         }
     }
+    
+    function handleFocus() {
+        setIsFocused(true);
+    }
+    
+    function handleBlur() {
+        setIsFocused(false);
+    }
 
     return (
         <div className={styles.Controls}>
@@ -38,12 +48,14 @@ export function Controls({ onSend, isDisabled=false }) {
                     ref={textAreaRef}
                     disabled={isDisabled}
                     minRows={1}
-                    maxRows={3}
+                    maxRows={isFocused ? 3 : 1}
                     placeholder="Message AI Chatbot" 
-                    className={styles.TextArea}
+                    className={`${styles.TextArea} ${isFocused ? styles.Focused : ''}`}
                     value={content}
                     onChange={handleContentChange}
                     onKeyDown={handleEnterPress}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                 />
             </div>
             <button className={styles.Button} onClick={handleContentSend} disabled={isDisabled}>

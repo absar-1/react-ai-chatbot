@@ -35,6 +35,11 @@
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
+  transition: max-height 0.2s ease;
+}
+
+.TextArea.Focused {
+  max-height: 100px; /* Keeps the original max height when focused */
 }
 
 .Button {
@@ -85,6 +90,7 @@
     border: 1px solid light-dark(#e0e0e0, #333333);
     max-height: 120px; /* Limits container height */
     /* overflow-y: auto;  Enables scrolling for long input */
+    transition: all 0.2s ease;
   }
   
   .Button {
@@ -96,6 +102,19 @@
     border: 1px solid light-dark(#e0e0e0, #333333);
     flex-shrink: 0;
     min-width: 44px;
+  }
+  
+  .TextArea {
+    max-height: 24px; /* Collapse to approximately 1 line when not focused on mobile */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .TextArea.Focused {
+    max-height: 80px; /* Allow expansion when focused (roughly 3 lines) */
+    white-space: normal;
+    overflow: visible;
   }
 }
 
